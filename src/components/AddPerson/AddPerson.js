@@ -1,11 +1,42 @@
-import React from 'react';
+// jshint esversion: 9
+import React, { Component } from 'react';
 
 import './AddPerson.css';
 
-const addPerson = (props) => (
-    <div className="AddPerson">
-        <button onClick={props.personAdded}>Add Person</button>
-    </div>
-);
+class AddPerson extends Component {
+    state = {
+        name: '',
+        age: ''
+    }
 
-export default addPerson;
+    nameChangeHandler = (e) => {
+        this.setState({name: e.target.value});
+    } 
+
+    ageChangeHandler = (e) => {
+        this.setState({age: e.target.value});
+    } 
+
+    render() {
+        return (
+            <div className="AddPerson">
+                <input 
+                    type="text" 
+                    placeholder="name"
+                    onChange={this.nameChangeHandler}
+                    value={this.state.name}/>
+                <input 
+                    type="number" 
+                    placeholder="age"
+                    onChange={this.ageChangeHandler}
+                    value={this.state.age}/>
+                <button 
+                    onClick={() => this.props.personAdded(this.state.name, this.state.age)}>
+                    Add Person
+                </button>
+            </div>
+        )
+    }
+}
+
+export default AddPerson;
